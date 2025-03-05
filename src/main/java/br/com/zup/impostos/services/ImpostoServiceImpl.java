@@ -22,8 +22,13 @@ public class ImpostoServiceImpl implements ImpostoService{
     }
 
     @Override
-    public List<Imposto> todosImpostos(){
+    public List<Imposto> listarTodosImpostos(){
         return impostoRepository.findAll();
+    }
+
+    @Override
+    public Imposto listarPeloId(Long id){
+        return impostoRepository.findById(id).orElse(null);
     }
 
     @Override
