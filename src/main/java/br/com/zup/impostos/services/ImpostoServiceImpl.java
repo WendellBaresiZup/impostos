@@ -25,4 +25,9 @@ public class ImpostoServiceImpl implements ImpostoService{
     public List<Imposto> todosImpostos(){
         return impostoRepository.findAll();
     }
+
+    @Override
+    public Imposto salvarImposto(Imposto imposto){
+        return impostoRepository.save(imposto);
+    }
 }
