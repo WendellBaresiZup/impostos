@@ -6,7 +6,6 @@ import br.com.zup.impostos.repositories.ImpostoRepository;
 import java.util.List;
 
 public interface ImpostoService {
-
     Double calcularImposto(Imposto imposto, double valorBase);
     List<Imposto> todosImpostos();
 
