@@ -19,8 +19,14 @@ public class ImpostoController {
 
     @GetMapping
     public ResponseEntity<List<Imposto>> listarTodosImpostos(){
-        List<Imposto> impostos = impostoService.todosImpostos();
+        List<Imposto> impostos = impostoService.listarTodosImpostos();
         return new ResponseEntity<>(impostos, HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Imposto> listarImpostoPeloId(@PathVariable Long id){
+        Imposto imposto = impostoService.listarImpostoPeloId(id);
+        return new ResponseEntity<>(imposto, HttpStatus.OK);
     }
 
     @PostMapping
