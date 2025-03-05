@@ -27,12 +27,17 @@ public class ImpostoServiceImpl implements ImpostoService{
     }
 
     @Override
-    public Imposto listarPeloId(Long id){
+    public Imposto listarImpostoPeloId(Long id){
         return impostoRepository.findById(id).orElse(null);
     }
 
     @Override
     public Imposto salvarImposto(Imposto imposto){
         return impostoRepository.save(imposto);
+    }
+
+    @Override
+    public void deletarImpostoPeloId(Long id){
+        impostoRepository.deleteById(id);
     }
 }
