@@ -34,4 +34,10 @@ public class ImpostoController {
         Imposto novoImposto = impostoService.salvarImposto(imposto);
         return new ResponseEntity<>(novoImposto, HttpStatus.CREATED);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletarImpostoPeloId(@PathVariable Long id){
+        impostoService.deletarImpostoPeloId(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }
