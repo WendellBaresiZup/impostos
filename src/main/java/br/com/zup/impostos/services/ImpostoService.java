@@ -8,5 +8,5 @@ import java.util.List;
 public interface ImpostoService {
     Double calcularImposto(Imposto imposto, double valorBase);
     List<Imposto> todosImpostos();
-
+    Imposto salvarImposto(Imposto imposto);
 }
