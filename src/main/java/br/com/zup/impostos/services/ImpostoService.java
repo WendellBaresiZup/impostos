@@ -8,6 +8,7 @@ import java.util.List;
 public interface ImpostoService {
     Double calcularImposto(Imposto imposto, double valorBase);
     List<Imposto> listarTodosImpostos();
-    Imposto listarPeloId(Long id);
+    Imposto listarImpostoPeloId(Long id);
     Imposto salvarImposto(Imposto imposto);
+    void deletarImpostoPeloId(Long id);
 }
