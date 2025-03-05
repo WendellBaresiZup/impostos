@@ -7,18 +7,21 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class ImpostoService {
+public class ImpostoServiceImpl implements ImpostoService{
 
     private ImpostoRepository impostoRepository;
 
-    public ImpostoService(ImpostoRepository impostoRepository) {
+    public ImpostoServiceImpl(ImpostoRepository impostoRepository) {
         this.impostoRepository = impostoRepository;
     }
 
-    public Double calcularImposto(Imposto imposto, Double valorBase){
+
+    @Override
+    public Double calcularImposto(Imposto imposto, double valorBase) {
         return valorBase * imposto.getAliquota() / 100;
     }
 
+    @Override
     public List<Imposto> todosImpostos(){
         return impostoRepository.findAll();
     }
