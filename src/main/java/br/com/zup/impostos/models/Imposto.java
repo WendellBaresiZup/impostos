@@ -12,6 +12,8 @@ public class Imposto {
     private String descricao;
     private double aliquota;
 
+
+
     public Imposto(Long id, String nome, String descricao, double aliquota) {
         this.id = id;
         this.nome = nome;
