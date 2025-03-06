@@ -1,5 +1,6 @@
 package br.com.zup.impostos.controllers;
 
+import br.com.zup.impostos.models.LoginRequest;
 import br.com.zup.impostos.models.Usuario;
 import br.com.zup.impostos.services.UsuarioService;
 import org.springframework.http.HttpStatus;
@@ -9,8 +10,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @RestController
-@RequestMapping("api//usuario")
+@RequestMapping("api/usuario")
 public class UsuarioController {
     private final UsuarioService usuarioService;
 
@@ -21,5 +25,13 @@ public class UsuarioController {
     @PostMapping("/cadastrar")
     public ResponseEntity<Usuario> cadastrarUsuario(@RequestBody Usuario usuario){
         return ResponseEntity.status(HttpStatus.CREATED).body(usuarioService.cadastrarUsuario(usuario));
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<Map<String, String>> login(@RequestBody LoginRequest loginRequest) {
+        String token = usuarioService.login(loginRequest);
+        Map<String, String> resposta = new HashMap<>();
+        resposta.put("token", token);
+        return ResponseEntity.ok(resposta);
     }
 }
