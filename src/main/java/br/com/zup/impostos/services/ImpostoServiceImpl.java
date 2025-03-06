@@ -1,5 +1,6 @@
 package br.com.zup.impostos.services;
 
+import br.com.zup.impostos.infra.JwtUtil;
 import br.com.zup.impostos.models.Imposto;
 import br.com.zup.impostos.repositories.ImpostoRepository;
 import org.springframework.stereotype.Service;
@@ -9,10 +10,13 @@ import java.util.List;
 @Service
 public class ImpostoServiceImpl implements ImpostoService{
 
-    private ImpostoRepository impostoRepository;
+    private final ImpostoRepository impostoRepository;
 
-    public ImpostoServiceImpl(ImpostoRepository impostoRepository) {
+    private final JwtUtil jwtUtil;
+
+    public ImpostoServiceImpl(ImpostoRepository impostoRepository, JwtUtil jwtUtil) {
         this.impostoRepository = impostoRepository;
+        this.jwtUtil = jwtUtil;
     }
 
 
