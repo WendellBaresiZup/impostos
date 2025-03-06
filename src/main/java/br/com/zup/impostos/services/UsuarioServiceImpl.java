@@ -13,7 +13,7 @@ public class UsuarioServiceImpl implements UsuarioService{
     }
 
     @Override
-    public Usuario criarUsuario(Usuario usuario){
+    public Usuario cadastrarUsuario(Usuario usuario){
         if (usuarioRepository.findByUserName(usuario.getUserName()).isPresent()){
             throw new RuntimeException("Username já existe!");
         }
