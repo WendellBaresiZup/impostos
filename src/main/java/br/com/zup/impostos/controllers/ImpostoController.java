@@ -40,4 +40,5 @@ public class ImpostoController {
         impostoService.deletarImpostoPeloId(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
 }
