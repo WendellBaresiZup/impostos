@@ -5,7 +5,9 @@ import br.com.zup.impostos.models.LoginRequest;
 import br.com.zup.impostos.models.Usuario;
 import br.com.zup.impostos.repositories.UsuarioRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
 
+@Service
 public class UsuarioServiceImpl implements UsuarioService{
 
     private final UsuarioRepository usuarioRepository;
