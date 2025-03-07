@@ -1,5 +1,6 @@
 package br.com.zup.impostos.services;
 
+import br.com.zup.impostos.dto.UsuarioDTO;
 import br.com.zup.impostos.dto.UsuarioLoginDTO;
 import br.com.zup.impostos.infra.JwtUtil;
 import br.com.zup.impostos.models.Usuario;
@@ -21,11 +22,14 @@ public class UsuarioServiceImpl implements UsuarioService{
 
 
     @Override
-    public Usuario cadastrarUsuario(Usuario usuario){
-        if (usuarioRepository.findByUserName(usuario.getUserName()).isPresent()){
+    public Usuario cadastrarUsuario(UsuarioDTO usuarioDTO){
+        if (usuarioRepository.findByUserName(usuarioDTO.getUserName()).isPresent()){
             throw new RuntimeException("Username já existe!");
         }
-        usuario.setPassword(new BCryptPasswordEncoder().encode(usuario.getPassword()));
+        Usuario usuario = new Usuario();
+        usuario.setUserName(usuarioDTO.getUserName());
+        usuario.setPassword(new BCryptPasswordEncoder().encode(usuarioDTO.getPassword()));
+        usuario.setRole(usuarioDTO.getRole());
         return usuarioRepository.save(usuario);
     }
 
