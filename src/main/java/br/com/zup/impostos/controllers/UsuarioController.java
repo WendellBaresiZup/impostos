@@ -1,5 +1,6 @@
 package br.com.zup.impostos.controllers;
 
+import br.com.zup.impostos.dto.UsuarioDTO;
 import br.com.zup.impostos.dto.UsuarioLoginDTO;
 import br.com.zup.impostos.models.Usuario;
 import br.com.zup.impostos.services.UsuarioService;
@@ -23,8 +24,8 @@ public class UsuarioController {
     }
 
     @PostMapping("/cadastrar")
-    public ResponseEntity<Usuario> cadastrarUsuario(@RequestBody Usuario usuario){
-        return ResponseEntity.status(HttpStatus.CREATED).body(usuarioService.cadastrarUsuario(usuario));
+    public ResponseEntity<Usuario> cadastrarUsuario(@RequestBody UsuarioDTO usuarioDTO){
+        return ResponseEntity.status(HttpStatus.CREATED).body(usuarioService.cadastrarUsuario(usuarioDTO));
     }
 
     @PostMapping("/login")
