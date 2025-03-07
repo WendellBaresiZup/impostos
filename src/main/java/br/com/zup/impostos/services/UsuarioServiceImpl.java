@@ -1,7 +1,7 @@
 package br.com.zup.impostos.services;
 
+import br.com.zup.impostos.dto.UsuarioLoginDTO;
 import br.com.zup.impostos.infra.JwtUtil;
-import br.com.zup.impostos.models.LoginRequest;
 import br.com.zup.impostos.models.Usuario;
 import br.com.zup.impostos.repositories.UsuarioRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -30,10 +30,10 @@ public class UsuarioServiceImpl implements UsuarioService{
     }
 
     @Override
-    public String login(LoginRequest loginRequest){
-        Usuario usuario = (Usuario) usuarioRepository.findByUserName(loginRequest.getUserName())
+    public String login(UsuarioLoginDTO usuarioLoginDTO){
+        Usuario usuario = (Usuario) usuarioRepository.findByUserName(usuarioLoginDTO.getUserName())
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado!") );
-        if (!new BCryptPasswordEncoder().matches(loginRequest.getPassword(), usuario.getPassword())){
+        if (!new BCryptPasswordEncoder().matches(usuarioLoginDTO.getPassword(), usuario.getPassword())){
             throw new RuntimeException("Senha inválida!");
         }
         return jwtUtil.geradorToken(usuario.getUserName());
