@@ -1,6 +1,6 @@
 package br.com.zup.impostos.controllers;
 
-import br.com.zup.impostos.models.LoginRequest;
+import br.com.zup.impostos.dto.UsuarioLoginDTO;
 import br.com.zup.impostos.models.Usuario;
 import br.com.zup.impostos.services.UsuarioService;
 import org.springframework.http.HttpStatus;
@@ -28,8 +28,8 @@ public class UsuarioController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Map<String, String>> login(@RequestBody LoginRequest loginRequest) {
-        String token = usuarioService.login(loginRequest);
+    public ResponseEntity<Map<String, String>> login(@RequestBody UsuarioLoginDTO usuarioLoginDTO) {
+        String token = usuarioService.login(usuarioLoginDTO);
         Map<String, String> resposta = new HashMap<>();
         resposta.put("token", token);
         return ResponseEntity.ok(resposta);
