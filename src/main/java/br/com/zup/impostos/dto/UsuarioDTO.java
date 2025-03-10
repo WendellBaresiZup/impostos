@@ -3,9 +3,9 @@ package br.com.zup.impostos.dto;
 public class UsuarioDTO {
     private String userName;
     private String password;
-    private String role;
+    private Role role;
 
-    public UsuarioDTO(String userName, String password, String role) {
+    public UsuarioDTO(String userName, String password, Role role) {
         this.userName = userName;
         this.password = password;
         this.role = role;
@@ -31,11 +31,11 @@ public class UsuarioDTO {
         this.password = password;
     }
 
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 }
