@@ -1,5 +1,6 @@
 package br.com.zup.impostos.services;
 
+import br.com.zup.impostos.dto.ImpostoDTO;
 import br.com.zup.impostos.infra.JwtUtil;
 import br.com.zup.impostos.models.Imposto;
 import br.com.zup.impostos.repositories.ImpostoRepository;
@@ -36,7 +37,11 @@ public class ImpostoServiceImpl implements ImpostoService{
     }
 
     @Override
-    public Imposto salvarImposto(Imposto imposto){
+    public Imposto cadastrarImposto(ImpostoDTO impostoDTO){
+        Imposto imposto = new Imposto();
+        imposto.setNome(impostoDTO.getNome());
+        imposto.setDescricao(impostoDTO.getDescricao());
+        imposto.setAliquota(impostoDTO.getAliquota());
         return impostoRepository.save(imposto);
     }
 
