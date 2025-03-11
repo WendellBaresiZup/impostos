@@ -9,15 +9,17 @@ import org.springframework.stereotype.Component;
 
 import java.security.Key;
 import java.util.Date;
+import java.util.List;
 
 @Component
 public class JwtUtil {
     private Key SECRET_KEY = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 
 
-    public String geradorToken(String userName){
+    public String geradorToken(String userName, List<String> roles){
         return Jwts.builder()
                 .setSubject(userName)
+                .claim("roles", roles)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60))
                 .signWith(SECRET_KEY)
