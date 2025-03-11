@@ -2,8 +2,10 @@ package br.com.zup.impostos.controllers;
 
 import br.com.zup.impostos.dto.UsuarioDTO;
 import br.com.zup.impostos.dto.UsuarioLoginDTO;
+import br.com.zup.impostos.dto.UsuarioResponseDTO;
 import br.com.zup.impostos.models.Usuario;
 import br.com.zup.impostos.services.UsuarioService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,7 +26,11 @@ public class UsuarioController {
     }
 
     @PostMapping("/cadastrar")
-    public ResponseEntity<Usuario> cadastrarUsuario(@RequestBody UsuarioDTO usuarioDTO){
+    public ResponseEntity<Usuario> cadastrarUsuario(@RequestBody @Valid UsuarioDTO usuarioDTO){
+        Usuario usuario = usuarioService.cadastrarUsuario(usuarioDTO);
+        UsuarioResponseDTO responseDTO = new UsuarioResponseDTO();
+        responseDTO.setUserName(usuario.getUserName());
+        responseDTO.setRole(usuarioDTO.getRole());
         return ResponseEntity.status(HttpStatus.CREATED).body(usuarioService.cadastrarUsuario(usuarioDTO));
     }
 
