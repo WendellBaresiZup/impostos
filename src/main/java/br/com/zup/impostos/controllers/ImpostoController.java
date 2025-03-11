@@ -1,5 +1,6 @@
 package br.com.zup.impostos.controllers;
 
+import br.com.zup.impostos.dto.ImpostoDTO;
 import br.com.zup.impostos.models.Imposto;
 import br.com.zup.impostos.services.ImpostoService;
 import org.springframework.http.HttpStatus;
@@ -30,8 +31,8 @@ public class ImpostoController {
     }
 
     @PostMapping
-    public ResponseEntity<Imposto> criarImposto(@RequestBody Imposto imposto){
-        Imposto novoImposto = impostoService.salvarImposto(imposto);
+    public ResponseEntity<Imposto> cadastrarImposto(@RequestBody ImpostoDTO impostoDTO){
+        Imposto novoImposto = impostoService.cadastrarImposto(impostoDTO);
         return new ResponseEntity<>(novoImposto, HttpStatus.CREATED);
     }
 
