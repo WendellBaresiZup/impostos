@@ -1,5 +1,7 @@
 package br.com.zup.impostos.dto;
 
+import br.com.zup.impostos.exceptions.RoleInvalidException;
+
 public enum Role {
     ROLE_ADMIN("ADMIN"),
     ROLE_USER("USER");
@@ -20,6 +22,6 @@ public enum Role {
                 return role;
             }
         }
-        throw new IllegalArgumentException("Nome de role inválido: " + roleName);
+        throw new RoleInvalidException("Nome de role inválido: " + roleName);
     }
 }
