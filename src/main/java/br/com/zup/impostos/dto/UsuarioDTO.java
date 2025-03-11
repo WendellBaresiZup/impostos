@@ -15,5 +15,4 @@ public class UsuarioDTO {
 
     public UsuarioDTO(){
     }
-
 }
