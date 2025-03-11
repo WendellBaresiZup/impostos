@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import org.hibernate.annotations.UuidGenerator;
 
-@Entity
+@Entity(name = "USUARIO")
 @Data
 public class Usuario {
     @Id
