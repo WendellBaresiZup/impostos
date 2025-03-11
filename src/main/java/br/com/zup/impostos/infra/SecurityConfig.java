@@ -18,10 +18,8 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http.authorizeHttpRequests(request ->request
                 .requestMatchers("/api/usuario/cadastrar", "/api/usuario/login").permitAll()
-                .requestMatchers(HttpMethod.POST,"/tipos", "/calculo").hasRole("ADMIN")
-                .requestMatchers(HttpMethod.GET,"/tipos").hasRole("ADMIN")
-                .requestMatchers(HttpMethod.POST,"/api/tipos").hasRole("ADMIN")
-                .requestMatchers(HttpMethod.GET,"/api/tipos").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.POST,"/api/tipos", "/api/tipos/calculo").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.GET,"/api/tipos").authenticated()
                 .anyRequest().authenticated()
         );
         http.csrf(AbstractHttpConfigurer::disable);
