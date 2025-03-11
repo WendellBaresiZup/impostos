@@ -1,5 +1,6 @@
 package br.com.zup.impostos.services;
 
+import br.com.zup.impostos.dto.ImpostoDTO;
 import br.com.zup.impostos.models.Imposto;
 import br.com.zup.impostos.repositories.ImpostoRepository;
 
@@ -9,6 +10,6 @@ public interface ImpostoService {
     Double calcularImposto(Imposto imposto, double valorBase);
     List<Imposto> listarTodosImpostos();
     Imposto listarImpostoPeloId(Long id);
-    Imposto salvarImposto(Imposto imposto);
+    Imposto cadastrarImposto(ImpostoDTO impostoDTO);
     void deletarImpostoPeloId(Long id);
 }
