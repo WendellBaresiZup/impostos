@@ -13,4 +13,13 @@ public enum Role {
     public String getRoleName(){
         return this.name();
     }
+
+    public static Role fromRoleName(String roleName){
+        for (Role role : Role.values()) {
+            if (role.roleName.equals(roleName)){
+                return role;
+            }
+        }
+        throw new IllegalArgumentException("Nome de role inválido: " + roleName);
+    }
 }
