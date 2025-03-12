@@ -8,13 +8,17 @@ import br.com.zup.impostos.infra.JwtUtil;
 import br.com.zup.impostos.models.Usuario;
 import br.com.zup.impostos.repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
 @Service
-public class UsuarioServiceImpl implements UsuarioService{
+public class UsuarioServiceImpl implements UsuarioService, UserDetailsService {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
@@ -49,5 +53,13 @@ public class UsuarioServiceImpl implements UsuarioService{
         List<String> roles = Collections.singletonList(usuario.getRole().name());
         System.out.println("Role do usuário " + usuario.getUserName() + ": " + roles);
         return jwtUtil.geradorToken(usuario.getUserName(), roles);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Usuario usuario = (Usuario) usuarioRepository.findByUserName(username)
+                .orElseThrow(()-> new UsernameNotFoundException("Usuario não encontrado"));
+        return new org.springframework.security.core.userdetails.User(usuario.getUserName(), usuario.getPassword(),
+        Collections.singletonList(new SimpleGrantedAuthority(usuario.getRole().name())));
     }
 }
