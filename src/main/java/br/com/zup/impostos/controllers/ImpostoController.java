@@ -5,6 +5,7 @@ import br.com.zup.impostos.models.Imposto;
 import br.com.zup.impostos.services.ImpostoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,6 +32,7 @@ public class ImpostoController {
     }
 
     @PostMapping
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<Imposto> cadastrarImposto(@RequestBody ImpostoDTO impostoDTO){
         Imposto novoImposto = impostoService.cadastrarImposto(impostoDTO);
         return new ResponseEntity<>(novoImposto, HttpStatus.CREATED);
@@ -41,5 +43,4 @@ public class ImpostoController {
         impostoService.deletarImpostoPeloId(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-
 }
