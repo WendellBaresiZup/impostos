@@ -32,7 +32,6 @@ public class ImpostoController {
     }
 
     @PostMapping
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<Imposto> cadastrarImposto(@RequestBody ImpostoDTO impostoDTO){
         Imposto novoImposto = impostoService.cadastrarImposto(impostoDTO);
         return new ResponseEntity<>(novoImposto, HttpStatus.CREATED);
