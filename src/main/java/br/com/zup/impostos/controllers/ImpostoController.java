@@ -1,11 +1,12 @@
 package br.com.zup.impostos.controllers;
 
+import br.com.zup.impostos.dto.CalculoImpostoRequest;
+import br.com.zup.impostos.dto.CalculoImpostoResponse;
 import br.com.zup.impostos.dto.ImpostoDTO;
 import br.com.zup.impostos.models.Imposto;
 import br.com.zup.impostos.services.ImpostoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -41,5 +42,11 @@ public class ImpostoController {
     public ResponseEntity<Void> deletarImpostoPeloId(@PathVariable Long id){
         impostoService.deletarImpostoPeloId(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PostMapping("/calculo")
+    public ResponseEntity<CalculoImpostoResponse> calcularImposto(@RequestBody CalculoImpostoRequest calculoImpostoRequest){
+        CalculoImpostoResponse calculoImpostoResponse = impostoService.calcularImpostoResponse(calculoImpostoRequest.getTipoImpostoId(), calculoImpostoRequest.getValorBase());
+        return new ResponseEntity<>(calculoImpostoResponse, HttpStatus.OK);
     }
 }
