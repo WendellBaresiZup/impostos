@@ -1,5 +1,6 @@
 package br.com.zup.impostos.services;
 
+import br.com.zup.impostos.dto.CalculoImpostoResponse;
 import br.com.zup.impostos.dto.ImpostoDTO;
 import br.com.zup.impostos.infra.JwtUtil;
 import br.com.zup.impostos.models.Imposto;
@@ -22,7 +23,8 @@ public class ImpostoServiceImpl implements ImpostoService{
 
 
     @Override
-    public Double calcularImposto(Imposto imposto, double valorBase) {
+    public Double calcularImposto(Long impostoId, double valorBase) {
+        Imposto imposto = listarImpostoPeloId(impostoId);
         return valorBase * imposto.getAliquota() / 100;
     }
 
@@ -48,5 +50,18 @@ public class ImpostoServiceImpl implements ImpostoService{
     @Override
     public void deletarImpostoPeloId(Long id){
         impostoRepository.deleteById(id);
+    }
+
+    @Override
+    public CalculoImpostoResponse calcularImpostoResponse(Long impostoId, double valorBase) {
+        Imposto imposto = listarImpostoPeloId(impostoId);
+        double valorImposto = valorBase * imposto.getAliquota() / 100;
+
+        CalculoImpostoResponse calculoImpostoResponse = new CalculoImpostoResponse();
+        calculoImpostoResponse.setTipoImposto(imposto.getNome());
+        calculoImpostoResponse.setValorBase(valorBase);
+        calculoImpostoResponse.setAliquota(imposto.getAliquota());
+        calculoImpostoResponse.setValorImposto(valorImposto);
+        return calculoImpostoResponse;
     }
 }
