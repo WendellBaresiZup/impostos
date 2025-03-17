@@ -17,8 +17,11 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import java.util.Collections;
 import java.util.Optional;
 
 @ExtendWith(MockitoExtension.class)
@@ -73,7 +76,17 @@ public class UsuarioServiceTest {
     }
 
 
+    @Test
+    public void loadUserByUsernameTeste(){
+        when(usuarioRepository.findByUserName(anyString())).thenReturn(Optional.of(usuario));
 
+        UserDetails userDetails = usuarioService.loadUserByUsername("testeUsuario");
+
+        assertNotNull(userDetails, "Usuario nao encontrado");
+        assertEquals("testeUsuario", userDetails.getUsername());
+        assertTrue(new BCryptPasswordEncoder().matches("testePassword", userDetails.getPassword()));
+        assertEquals(Collections.singleton(new SimpleGrantedAuthority("ROLE_USER")),userDetails.getAuthorities());
+    }
 
 }
 
