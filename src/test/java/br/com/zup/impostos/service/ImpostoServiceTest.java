@@ -1,5 +1,6 @@
 package br.com.zup.impostos.service;
 
+import br.com.zup.impostos.dto.ImpostoDTO;
 import br.com.zup.impostos.models.Imposto;
 import br.com.zup.impostos.repositories.ImpostoRepository;
 import br.com.zup.impostos.services.ImpostoServiceImpl;
@@ -16,8 +17,9 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class ImpostoServiceTest {
@@ -29,10 +31,12 @@ public class ImpostoServiceTest {
     private ImpostoServiceImpl impostoService;
 
     private Imposto imposto;
+    private ImpostoDTO impostoDTO;
 
     @BeforeEach
     public void setUp(){
         imposto = new Imposto(1L, "IR", "Imposto sobre a renda de pessoas físicas", 27.5);
+        impostoDTO = new ImpostoDTO("IR", "Imposto sobre a renda de pessoas físicas", 27.5);
     }
 
     @Test
@@ -76,6 +80,19 @@ public class ImpostoServiceTest {
         assertNull(resultado);
     }
 
+    @Test
+    public void cadastrarImpostoTeste(){
+        when(impostoRepository.save(any(Imposto.class))).thenReturn(imposto);
 
+        Imposto resultado = impostoService.cadastrarImposto(impostoDTO);
+
+        assertEquals(imposto.getId(), resultado.getId());
+        assertEquals(imposto.getNome(), resultado.getNome());
+        assertEquals(imposto.getDescricao(), resultado.getDescricao());
+        assertEquals(imposto.getAliquota(), resultado.getAliquota());
+
+        verify(impostoRepository, times(1)).save(any(Imposto.class));
+
+    }
 
 }
