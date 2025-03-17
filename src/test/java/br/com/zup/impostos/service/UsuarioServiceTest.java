@@ -6,6 +6,7 @@ import static org.mockito.Mockito.*;
 
 import br.com.zup.impostos.dto.Role;
 import br.com.zup.impostos.dto.UsuarioDTO;
+import br.com.zup.impostos.dto.UsuarioLoginDTO;
 import br.com.zup.impostos.infra.JwtUtil;
 import br.com.zup.impostos.models.Usuario;
 import br.com.zup.impostos.repositories.UsuarioRepository;
@@ -33,6 +34,8 @@ public class UsuarioServiceTest {
     private UsuarioServiceImpl usuarioService;
 
     private Usuario usuario;
+    private UsuarioDTO usuarioDTO;
+    private UsuarioLoginDTO usuarioLoginDTO;
 
     @BeforeEach
     public void setUp() {
@@ -54,6 +57,23 @@ public class UsuarioServiceTest {
         assertEquals("testeUsuario", result.getUserName());
         verify(usuarioRepository, times(1)).save(any(Usuario.class));
     }
+
+    @Test
+    public void loginTeste(){
+        when(usuarioRepository.findByUserName(anyString())).thenReturn(Optional.of(usuario));
+        when(jwtUtil.geradorToken(anyString(), anyList())).thenReturn("Token");
+
+        UsuarioLoginDTO usuarioLoginDTO = new UsuarioLoginDTO();
+        usuarioLoginDTO.setUserName("testeUsuario");
+        usuarioLoginDTO.setPassword("testePassword");
+
+        String token = usuarioService.login(usuarioLoginDTO);
+
+        assertEquals("Token", token);
+    }
+
+
+
 
 }
 
