@@ -10,6 +10,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -40,5 +42,18 @@ public class ImpostoServiceTest {
 
         assertEquals(27.5, valorImposto);
     }
+
+
+    @Test
+    public void listarTodosImpostosTeste(){
+        when(impostoRepository.findAll()).thenReturn(Arrays.asList(imposto));
+
+        List<Imposto> impostos = impostoService.listarTodosImpostos();
+
+        assertEquals(1, impostos.size());
+        assertEquals("IR", impostos.get(0).getNome());
+    }
+
+
 
 }
