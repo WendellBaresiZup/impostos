@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 
@@ -52,6 +53,27 @@ public class ImpostoServiceTest {
 
         assertEquals(1, impostos.size());
         assertEquals("IR", impostos.get(0).getNome());
+    }
+
+    @Test
+    public void listraImpostoPeloIdTeste(){
+        when(impostoRepository.findById(anyLong())).thenReturn(Optional.of(imposto));
+
+        Imposto resultado = impostoService.listarImpostoPeloId(1L);
+
+        assertEquals(imposto.getId(), resultado.getId());
+        assertEquals(imposto.getNome(), resultado.getNome());
+        assertEquals(imposto.getDescricao(), resultado.getDescricao());
+        assertEquals(imposto.getAliquota(), resultado.getAliquota());
+    }
+
+    @Test
+    public void listraImpostoPeloId_Error(){
+        when(impostoRepository.findById(anyLong())).thenReturn(Optional.empty());
+
+        Imposto resultado = impostoService.listarImpostoPeloId(2L);
+
+        assertNull(resultado);
     }
 
 
