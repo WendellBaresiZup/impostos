@@ -1,5 +1,6 @@
 package br.com.zup.impostos.service;
 
+import br.com.zup.impostos.dto.CalculoImpostoResponse;
 import br.com.zup.impostos.dto.ImpostoDTO;
 import br.com.zup.impostos.models.Imposto;
 import br.com.zup.impostos.repositories.ImpostoRepository;
@@ -92,7 +93,29 @@ public class ImpostoServiceTest {
         assertEquals(imposto.getAliquota(), resultado.getAliquota());
 
         verify(impostoRepository, times(1)).save(any(Imposto.class));
-
     }
+
+    @Test
+    public void deletarImpostoPeloIdTeste(){
+        doNothing().when(impostoRepository).deleteById(anyLong());
+
+        impostoService.deletarImpostoPeloId(1L);
+
+        verify(impostoRepository, times(1)).deleteById(1L);
+    }
+
+    @Test
+    public void calcularImpostoResponseTeste(){
+        when(impostoRepository.findById(anyLong())).thenReturn(Optional.of(imposto));
+
+        double valorBase = 1000.0;
+        CalculoImpostoResponse resposta = impostoService.calcularImpostoResponse(1L, valorBase);
+
+        assertEquals("IR", resposta.getTipoImposto());
+        assertEquals(1000.0, resposta.getValorBase());
+        assertEquals(27.5, resposta.getAliquota());
+        assertEquals(275.0, resposta.getValorImposto());
+    }
+
 
 }
