@@ -1,4 +1,19 @@
 package br.com.zup.impostos.models;
 
-public class UsuarioTeste {
+import br.com.zup.impostos.dto.Role;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+public class UsuarioTest {
+
+    @Test
+    public void UsuarioTeste(){
+        Usuario usuario = new Usuario("1", "testeUsuario", "testePassword", Role.ROLE_USER);
+
+        assertEquals("1", usuario.getUuid());
+        assertEquals("testeUsuario", usuario.getUserName());
+        assertEquals("testePassword", usuario.getPassword());
+        assertEquals(Role.ROLE_USER, usuario.getRole());
+    }
 }
