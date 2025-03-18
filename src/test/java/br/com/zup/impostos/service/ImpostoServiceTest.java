@@ -1,6 +1,6 @@
 package br.com.zup.impostos.service;
 
-import br.com.zup.impostos.dto.CalculoImpostoResponse;
+import br.com.zup.impostos.dto.CalculoImpostoResponseDTO;
 import br.com.zup.impostos.dto.ImpostoDTO;
 import br.com.zup.impostos.models.Imposto;
 import br.com.zup.impostos.repositories.ImpostoRepository;
@@ -109,7 +109,7 @@ public class ImpostoServiceTest {
         when(impostoRepository.findById(anyLong())).thenReturn(Optional.of(imposto));
 
         double valorBase = 1000.0;
-        CalculoImpostoResponse resposta = impostoService.calcularImpostoResponse(1L, valorBase);
+        CalculoImpostoResponseDTO resposta = impostoService.calcularImpostoResponse(1L, valorBase);
 
         assertEquals("IR", resposta.getTipoImposto());
         assertEquals(1000.0, resposta.getValorBase());
