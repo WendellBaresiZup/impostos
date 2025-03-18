@@ -5,7 +5,6 @@ import br.com.zup.impostos.dto.ImpostoDTO;
 import br.com.zup.impostos.models.Imposto;
 
 import java.util.List;
-
 public interface ImpostoService {
     Double calcularImposto(Long impostoId, double valorBase);
     List<Imposto> listarTodosImpostos();
