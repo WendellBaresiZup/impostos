@@ -1,7 +1,7 @@
 package br.com.zup.impostos.controllers;
 
-import br.com.zup.impostos.dto.CalculoImpostoRequest;
-import br.com.zup.impostos.dto.CalculoImpostoResponse;
+import br.com.zup.impostos.dto.CalculoImpostoRequestDTO;
+import br.com.zup.impostos.dto.CalculoImpostoResponseDTO;
 import br.com.zup.impostos.dto.ImpostoDTO;
 import br.com.zup.impostos.models.Imposto;
 import br.com.zup.impostos.services.ImpostoService;
@@ -45,8 +45,8 @@ public class ImpostoController {
     }
 
     @PostMapping("/calculo")
-    public ResponseEntity<CalculoImpostoResponse> calcularImposto(@RequestBody CalculoImpostoRequest calculoImpostoRequest){
-        CalculoImpostoResponse calculoImpostoResponse = impostoService.calcularImpostoResponse(calculoImpostoRequest.getTipoImpostoId(), calculoImpostoRequest.getValorBase());
-        return new ResponseEntity<>(calculoImpostoResponse, HttpStatus.OK);
+    public ResponseEntity<CalculoImpostoResponseDTO> calcularImposto(@RequestBody CalculoImpostoRequestDTO calculoImpostoRequestDTO){
+        CalculoImpostoResponseDTO calculoImpostoResponseDTO = impostoService.calcularImpostoResponse(calculoImpostoRequestDTO.getTipoImpostoId(), calculoImpostoRequestDTO.getValorBase());
+        return new ResponseEntity<>(calculoImpostoResponseDTO, HttpStatus.OK);
     }
 }
