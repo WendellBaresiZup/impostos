@@ -1,6 +1,5 @@
-package br.com.zup.impostos.infra;
+package br.com.zup.impostos.exceptions;
 
-import br.com.zup.impostos.exceptions.UsuarioNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
