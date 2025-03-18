@@ -1,10 +1,32 @@
 package br.com.zup.impostos.dto;
 
+import br.com.zup.impostos.models.Imposto;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-@ExtendWith(MockitoExtension.class)
-public class CalculoImpostoRequestTest {
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-    public void
+@ExtendWith(MockitoExtension.class)
+public class CalculoImpostoRequestDTOTest {
+
+    private Long tipoImpostoId;
+    private double valorBase;
+    private CalculoImpostoRequestDTO requestDTO;
+
+    @BeforeEach
+    public void setUp(){
+        tipoImpostoId = 1L;
+        valorBase = 1000.0;
+
+        requestDTO = new CalculoImpostoRequestDTO(tipoImpostoId, valorBase);
+    }
+
+
+    @Test
+    public void CalculoImpostoRequestDTOTeste(){
+        assertEquals(tipoImpostoId, requestDTO.getTipoImpostoId());
+        assertEquals(valorBase, requestDTO.getValorBase());
+    }
 }
