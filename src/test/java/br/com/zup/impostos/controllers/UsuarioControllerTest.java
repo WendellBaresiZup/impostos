@@ -70,7 +70,7 @@ public class UsuarioControllerTest {
     }
 
     @Test
-    public void loginTeste() throws Exception{
+    public void loginSucessoTeste() throws Exception{
         String token = "mocked-jwt-token";
         when(usuarioService.login(any(UsuarioLoginDTO.class))).thenReturn(token);
 
@@ -87,6 +87,27 @@ public class UsuarioControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.token").value(token));
 
+    }
+
+    @Test
+    public void login_Falha() throws Exception {
+        // Arrange: Mock the service to throw a RuntimeException
+        when(usuarioService.login(any(UsuarioLoginDTO.class))).thenThrow(new RuntimeException("Invalid credentials"));
+
+        // JSON payload for the request
+        String loginJson = """
+            {
+                "userName": "InvalidUser",
+                "password": "InvalidPassword"
+            }
+            """;
+
+        // Act and Assert: Perform POST request and validate error response
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/usuario/login")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(loginJson))
+                .andExpect(status().isUnauthorized()) // HTTP 401 Unauthorized
+                .andExpect(jsonPath("$.message").value("Invalid credentials")); // Validate error message
     }
 
 }
