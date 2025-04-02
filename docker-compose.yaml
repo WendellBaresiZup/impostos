@@ -1,0 +1,27 @@
+version: '3.8'
+services:
+  impostos:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      DB_URL: jdbc:postgresql://localhost:5432/impostos
+      DB_USERNAME: postgres # Coloque o nome do seu usuario do postgres
+      DB_PASSWORD: password # Coloque a senha do seu usuario no postgres
+    depends_on:
+      - db
+  db:
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: impostos
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+
+volumes:
+  postgres_data:
