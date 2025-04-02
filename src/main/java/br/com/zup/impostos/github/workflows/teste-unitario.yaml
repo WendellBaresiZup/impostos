@@ -1,0 +1,17 @@
+name: Teste Unitario
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  meu_job:
+    runs-on: windows-latest
+
+    steps:
+      - name: Passo 1 - Checkout do código
+        uses: actions/checkout@v3
+
+      - name: Passo 2 - Exibir mensagem
+        run: echo "Olá, GitHub Actions!"
