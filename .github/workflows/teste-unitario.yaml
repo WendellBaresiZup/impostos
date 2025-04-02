@@ -3,7 +3,7 @@ name: Teste Unitario
 on:
   push:
     branches:
-      - main
+      - development
 
 jobs:
   meu_job:
